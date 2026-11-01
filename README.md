@@ -2,69 +2,146 @@
 
 **Make short-form scrolling visible.**
 
-ScrollSense is a proposed digital-wellbeing app that aims to help people become more aware of how many short-form videos they encounter and how much time they spend scrolling.
+ScrollSense is an experimental digital-wellbeing application designed to help users become more aware of their short-form video consumption.
 
-The goal is to make scrolling habits more visible, provide gentle reminders, and encourage more intentional use of short-video platforms.
+It aims to track how frequently users encounter short-form videos and how much time they spend using platforms such as YouTube Shorts and Instagram Reels.
 
-## 📄 Project Brief
+The goal is simple: make mindless scrolling more visible and encourage healthier digital habits.
 
-**[Read the ScrollSense Project Brief (PDF)](ScrollSense_Project_Brief.pdf)**
+## Project Status
 
-The brief explains the project concept, planned technologies, architecture, development roadmap, and technical challenges.
+**Current stage: Prototype Development and Testing**
 
-## ✨ Planned Features
+The initial Android application and Python integration are working. Feed-detection experiments have produced promising results on an Android emulator.
 
-- A live counter for supported short-video feeds.
-- Daily scrolling time and estimated feed-item counts.
-- Customizable usage limits and pause reminders.
-- A daily dashboard with summaries.
-- Local-first data storage, with cloud syncing considered for a future version.
+Individual video encounter counting and production-ready detection are still under development.
 
-## 🛠️ Planned Technology Stack
+## Current Features
 
-| Technology | Purpose |
+- Android application built with Kotlin and Jetpack Compose.
+- Python tracking engine integrated using Chaquopy.
+- SQLite database for persistent local storage.
+- Daily YouTube and Instagram app-usage statistics.
+- Experimental YouTube Shorts interface detection.
+- Experimental Instagram Reels interface detection.
+- Feed-session duration tracking.
+- Dashboard displaying app usage and feed statistics.
+
+## Technology Stack
+
+| Component | Technology |
 |---|---|
-| Python | Core logic, counting rules, time calculations, and summaries |
-| Kotlin | Android-specific integration and system features |
-| JavaScript | PC browser extension and feed detection |
-| HTML & CSS | Website and interface styling |
-| SQLite | Local storage for usage records and summaries |
-| GitHub | Source code, documentation, and releases |
+| Android application | Kotlin |
+| User interface | Jetpack Compose |
+| Core tracking logic | Python 3.13 |
+| Python–Android integration | Chaquopy |
+| Database | SQLite |
+| Feed detection prototype | Android AccessibilityService |
+| Android usage statistics | UsageStatsManager |
+| Development environment | Android Studio |
 
-The final architecture may evolve as the tracking approach is tested.
+## Architecture
 
-## 🎯 Initial Scope
+ScrollSense uses a hybrid architecture.
 
-The first feasibility prototype will investigate tracking for:
+- **Kotlin:** Handles Android functionality, permissions, accessibility events and the application interface.
+- **Python:** Handles tracking logic, session timing, encounter management and daily summaries.
+- **SQLite:** Stores tracking data locally.
+- **Chaquopy:** Connects the Android application to the Python core.
 
-- YouTube Shorts on Android
-- Instagram Reels on Android
+## Current Detection Approach
 
-The project will also explore a browser extension for the corresponding websites on PC.
+The prototype investigates Android accessibility interface identifiers to distinguish supported short-form feeds.
 
-## 🗺️ Development Roadmap
+Experimental YouTube Shorts signals include:
+- `reel_recycler`
+- `reel_player_page_container`
 
-1. Define the requirements and architecture.
-2. Set up the development environment.
-3. Test the feasibility and accuracy of feed tracking.
-4. Build the Android app and its dashboard.
-5. Develop the PC browser extension.
-6. Test, document, and improve the application.
-7. Publish the source code and website.
-8. Prepare an Android release for Google Play review.
+Experimental Instagram Reels signals include:
+- `clips_viewer_view_pager`
+- `clips_video_container`
+- `clips_media_component`
 
-## 🔒 Privacy and Accuracy
+These identifiers are implementation-dependent and may change between app versions.
 
-The initial design favors local data storage and transparent user permissions.
+The accessibility prototype currently inspects interface structure and component identifiers locally. It does not intentionally collect visible screen text.
 
-Exact counting of individual Reels and Shorts is a technical challenge. A feed item encountered is not necessarily a video watched completely. Accuracy, platform limitations, and applicable app-store policies will be evaluated during development.
+## Important Limitations
 
-## 📌 Project Status
+ScrollSense is still experimental.
 
-**Current stage: Planning and architecture.**
+- Android app-usage statistics measure the entire YouTube and Instagram applications, not exclusively Shorts and Reels.
+- Feed detection currently relies on experimental accessibility signals.
+- Individual video transitions are not yet reliably identified or counted.
+- Feed-session timing requires further testing, particularly when switching between applications.
+- Detection accuracy may vary across devices and application versions.
+- Google Play accessibility requirements and disclosures must be addressed before public release.
 
-The full app has not yet been implemented. Features and technical decisions will be validated through prototypes and testing.
+## Project Structure
 
-## 🤝 Contributions and Feedback
+```text
+ScrollSense/
+│
+├── android-app/
+│   ├── app/
+│   └── gradle/
+│
+├── python-core/
+│   ├── app_usage_store.py
+│   ├── daily_dashboard.py
+│   ├── scrollsense_bridge.py
+│   ├── time_tracker.py
+│   └── tracking_engine.py
+│
+├── docs/
+│
+├── browser-extension/
+│
+├── website/
+│
+├── tests/
+│
+├── .gitignore
+├── README.md
+└── ScrollSense_Project_Brief.pdf
+```
 
-Suggestions and feedback are welcome as the project develops. Contribution guidelines and licensing details will be added when the project is ready for collaboration.
+## Roadmap
+
+- [x] Initial project architecture.
+- [x] Android application setup.
+- [x] Python tracking engine.
+- [x] SQLite integration.
+- [x] Android–Python integration.
+- [x] Daily app-usage tracking.
+- [x] Experimental YouTube Shorts detection.
+- [x] Experimental Instagram Reels detection.
+- [x] Basic feed-session timing.
+- [ ] Reliable app-exit detection.
+- [ ] Individual Shorts and Reels encounter counting.
+- [ ] More accurate feed-duration tracking.
+- [ ] Improved dashboard and digital-wellbeing insights.
+- [ ] Desktop browser extension.
+- [ ] Project website.
+- [ ] Testing across real Android devices.
+- [ ] Google Play release preparation.
+
+## Privacy
+
+The current prototype stores usage statistics locally in an SQLite database.
+
+Accessibility access is optional and must be explicitly enabled by the user. The prototype uses it to inspect supported application interface structures.
+
+The project will continue to prioritize transparency, user consent and data minimization.
+
+## Contributing
+
+ScrollSense is currently a personal development project. Contributions, ideas and constructive feedback are welcome as the project evolves.
+
+## License
+
+A project license has not yet been selected.
+
+---
+
+**ScrollSense — Use technology to take control of your attention.**
