@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ScrollSense</string>
+
+    <string name="feed_detection_service_description">
+        Checks the interface structure of YouTube and Instagram locally
+        to help identify Shorts and Reels activity.
+    </string>
+</resources>
