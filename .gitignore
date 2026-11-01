@@ -1,0 +1,25 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE
+.idea/
+*.iml
+
+# Android
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+key.properties
+
+# JavaScript
+node_modules/
+dist/
+
+# Secrets
+.env
